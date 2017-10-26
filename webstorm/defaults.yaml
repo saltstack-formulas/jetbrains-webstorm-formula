@@ -1,0 +1,39 @@
+#Default Look Dictionary
+
+webstorm:
+  prefix: /usr/lib/jetbrains
+  tmpdir: /tmp/jetbrainstmp
+  symlink: /usr/bin/webstorm
+  symhome: /opt/jetbrains/webstorm
+  command: /bin/webstorm.sh
+  homes: /home
+  osflavour: linux
+
+  jetbrains:
+    #Default is WebStorm
+    product: WS 
+    edition:
+    uri: https://data.services.jetbrains.com/products/releases?latest=true&code=
+
+  dl:
+    archive_type: tar
+    opts: -s -L
+    interval: 60
+    retries: 1
+    source_url:
+    src_hashfile:
+    src_hashsum:
+    archive_name:
+    unpack_opts:
+
+  alt:
+    priority: 170
+    realhome: 
+    realcmd:
+
+  prefs:
+    user: undefined_user
+    importurl:
+    importdir:
+    myfile: webstorm-prefs.xml
+
