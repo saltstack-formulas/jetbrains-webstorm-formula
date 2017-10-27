@@ -5,16 +5,14 @@ webstorm-remove-prev-archive:
   file.absent:
     - name: '{{ webstorm.tmpdir }}/{{ webstorm.dl.archive_name }}'
     - require_in:
-      - webstorm-install-dir
+      - webstorm-extract-dirs
 
-webstorm-install-dir:
+webstorm-extract-dirs:
   file.directory:
     - names:
-      - '{{ webstorm.alt.realhome }}'
       - '{{ webstorm.tmpdir }}'
 {% if grains.os not in ('MacOS', 'Windows') %}
-      - '{{ webstorm.prefix }}'
-      - '{{ webstorm.symhome }}'
+      - '{{ webstorm.jetbrains.realhome }}'
     - user: root
     - group: root
     - mode: 755
@@ -31,19 +29,6 @@ webstorm-download-archive:
         attempts: {{ webstorm.dl.retries }}
         interval: {{ webstorm.dl.interval }}
       {% endif %}
-
-{% if grains.os not in ('MacOS') %}
-webstorm-unpacked-dir:
-  file.directory:
-    - name: '{{ webstorm.alt.realhome }}'
-    - user: root
-    - group: root
-    - mode: 755
-    - makedirs: True
-    - force: True
-    - onchanges:
-      - cmd: webstorm-download-archive
-{% endif %}
 
 {%- if webstorm.dl.src_hashsum %}
    # Check local archive using hashstring for older Salt / MacOS.
@@ -71,13 +56,14 @@ webstorm-package-install:
     - force: True
     - allow_untrusted: True
 {% else %}
+  # Linux
   archive.extracted:
     - source: 'file://{{ webstorm.tmpdir }}/{{ webstorm.dl.archive_name }}'
-    - name: '{{ webstorm.alt.realhome }}'
+    - name: '{{ webstorm.jetbrains.realhome }}'
     - archive_format: {{ webstorm.dl.archive_type }}
        {% if grains['saltversioninfo'] < [2016, 11, 0] %}
     - tar_options: {{ webstorm.dl.unpack_opts }}
-    - if_missing: '{{ webstorm.alt.realcmd }}'
+    - if_missing: '{{ webstorm.jetbrains.realcmd }}'
        {% else %}
     - options: {{ webstorm.dl.unpack_opts }}
        {% endif %}
@@ -95,36 +81,14 @@ webstorm-package-install:
 
 webstorm-remove-archive:
   file.absent:
-    - names:
-      # todo: maybe just delete the tmpdir itself
-      - '{{ webstorm.tmpdir }}/{{ webstorm.dl.archive_name }}'
-      - '{{ webstorm.tmpdir }}/{{ webstorm.dl.archive_name }}.sha256'
+    - name: '{{ webstorm.tmpdir }}'
     - onchanges:
 {%- if grains.os in ('Windows') %}
       - pkg: webstorm-package-install
 {%- elif grains.os in ('MacOS') %}
       - macpackage: webstorm-package-install
 {% else %}
+      #Unix
       - archive: webstorm-package-install
-
-webstorm-home-symlink:
-  file.symlink:
-    - name: '{{ webstorm.symhome }}'
-    - target: '{{ webstorm.alt.realhome }}'
-    - force: True
-    - onchanges:
-      - archive: webstorm-package-install
-
-# Update system profile with PATH
-webstorm-config:
-  file.managed:
-    - name: /etc/profile.d/webstorm.sh
-    - source: salt://webstorm/files/webstorm.sh
-    - template: jinja
-    - mode: 644
-    - user: root
-    - group: root
-    - context:
-      webstorm_home: '{{ webstorm.symhome }}'
 
 {% endif %}

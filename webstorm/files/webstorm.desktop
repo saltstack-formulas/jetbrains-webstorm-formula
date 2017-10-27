@@ -2,7 +2,7 @@
 Encoding=UTF-8
 Name=Jetbrains WebStorm
 Comment=JetBrains WebStorm (JavaScript IDE)
-Icon=/opt/webstorm/bin/webstorm.png
+Icon={{ home }}/{{ command.split('.')[0] }}.png
 Exec={{ home }}/{{ command }}
 Terminal=false
 Type=Application
