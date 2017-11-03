@@ -1,6 +1,6 @@
 {% from "webstorm/map.jinja" import webstorm with context %}
 
-{% if webstorm.prefs.user not in (None, 'undfined', 'undefined_user') %}
+{% if webstorm.prefs.user not in (None, 'undefined_user', 'undefined', '',) %}
 
   {% if grains.os == 'MacOS' %}
 webstorm-desktop-shortcut-clean:
@@ -33,7 +33,7 @@ webstorm-desktop-shortcut-add:
     - name: {{ webstorm.homes }}/{{ webstorm.prefs.user }}/Desktop/webstorm{{ webstorm.jetbrains.edition }}.desktop
     - user: {{ webstorm.prefs.user }}
     - makedirs: True
-      {% if salt['grains.get']('os_family') in ('Suse') %} 
+      {% if salt['grains.get']('os_family') in ('Suse',) %} 
     - group: users
       {% else %}
     - group: {{ webstorm.prefs.user }}
@@ -58,9 +58,9 @@ webstorm-prefs-importfile:
     - source: {{ webstorm.prefs.jardir }}/{{ webstorm.prefs.jarfile }}
     - user: {{ webstorm.prefs.user }}
     - makedirs: True
-        {% if grains.os_family in ('Suse') %}
+        {% if grains.os_family in ('Suse',) %}
     - group: users
-        {% elif grains.os not in ('MacOS') %}
+        {% elif grains.os not in ('MacOS',) %}
         #inherit Darwin ownership
     - group: {{ webstorm.prefs.user }}
         {% endif %}

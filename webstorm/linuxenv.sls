@@ -1,6 +1,6 @@
 {% from "webstorm/map.jinja" import webstorm with context %}
 
-{% if grains.os not in ('MacOS', 'Windows') %}
+{% if grains.os not in ('MacOS', 'Windows',) %}
 
 webstorm-home-symlink:
   file.symlink:
@@ -22,7 +22,8 @@ webstorm-config:
       home: '{{ webstorm.jetbrains.home }}/webstorm'
 
   # Debian alternatives
-  {% if grains.os_family not in ('Arch') %}
+  {% if webstorm.linux.altpriority > 0 %}
+     {% if grains.os_family not in ('Arch',) %}
 
 # Add webstorm-home to alternatives system
 webstorm-home-alt-install:
@@ -57,6 +58,7 @@ webstorm-alt-set:
     - onchanges:
       - alternatives: webstorm-alt-install
 
+      {% endif %}
   {% endif %}
 
 {% endif %}
