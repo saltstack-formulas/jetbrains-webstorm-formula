@@ -31,6 +31,7 @@ webstorm:
 
   prefs:
     user:
+    group:
     #See https://www.jetbrains.com/help/webstorm/exporting-and-importing-settings.html
     jarurl:
     jardir:

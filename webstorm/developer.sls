@@ -1,17 +1,15 @@
 {% from "webstorm/map.jinja" import webstorm with context %}
 
-{% if webstorm.prefs.user not in (None, 'undefined_user', 'undefined', '',) %}
+{% if webstorm.prefs.user %}
 
-  {% if grains.os == 'MacOS' %}
 webstorm-desktop-shortcut-clean:
   file.absent:
     - name: '{{ webstorm.homes }}/{{ webstorm.prefs.user }}/Desktop/WebStorm'
     - require_in:
       - file: webstorm-desktop-shortcut-add
-  {% endif %}
+    - onlyif: test "`uname`" = "Darwin"
 
 webstorm-desktop-shortcut-add:
-  {% if grains.os == 'MacOS' %}
   file.managed:
     - name: /tmp/mac_shortcut.sh
     - source: salt://webstorm/files/mac_shortcut.sh
@@ -21,24 +19,25 @@ webstorm-desktop-shortcut-add:
       user: {{ webstorm.prefs.user }}
       homes: {{ webstorm.homes }}
       edition: {{ webstorm.jetbrains.edition }}
+    - onlyif: test "`uname`" = "Darwin"
   cmd.run:
     - name: /tmp/mac_shortcut.sh {{ webstorm.jetbrains.edition }}
     - runas: {{ webstorm.prefs.user }}
     - require:
       - file: webstorm-desktop-shortcut-add
-   {% else %}
-   #Linux
+    - require_in:
+      - file: webstorm-desktop-shortcut-install
+    - onlyif: test "`uname`" = "Darwin"
+
+webstorm-desktop-shortcut-install:
   file.managed:
     - source: salt://webstorm/files/webstorm.desktop
     - name: {{ webstorm.homes }}/{{ webstorm.prefs.user }}/Desktop/webstorm{{ webstorm.jetbrains.edition }}.desktop
-    - user: {{ webstorm.prefs.user }}
     - makedirs: True
-      {% if salt['grains.get']('os_family') in ('Suse',) %} 
-    - group: users
-      {% elif grains.os not in ('MacOS',) %}
-        #inherit Darwin group ownership
-    - group: {{ webstorm.prefs.user }}
-      {% endif %}
+    - user: {{ webstorm.prefs.user }}
+       {% if webstorm.prefs.group and grains.os not in ('MacOS',) %}
+    - group: {{ webstorm.prefs.group }}
+       {% endif %}
     - mode: 644
     - force: True
     - template: jinja
@@ -46,34 +45,28 @@ webstorm-desktop-shortcut-add:
     - context:
       home: {{ webstorm.jetbrains.realhome }}
       command: {{ webstorm.command }}
-   {% endif %}
 
 
   {% if webstorm.prefs.jarurl or webstorm.prefs.jardir %}
 
 webstorm-prefs-importfile:
-   {% if webstorm.prefs.jardir %}
   file.managed:
     - onlyif: test -f {{ webstorm.prefs.jardir }}/{{ webstorm.prefs.jarfile }}
     - name: {{ webstorm.homes }}/{{ webstorm.prefs.user }}/{{ webstorm.prefs.jarfile }}
     - source: {{ webstorm.prefs.jardir }}/{{ webstorm.prefs.jarfile }}
-    - user: {{ webstorm.prefs.user }}
     - makedirs: True
-        {% if grains.os_family in ('Suse',) %}
-    - group: users
-        {% elif grains.os not in ('MacOS',) %}
-        #inherit Darwin ownership
-    - group: {{ webstorm.prefs.user }}
-        {% endif %}
+    - user: {{ webstorm.prefs.user }}
+       {% if webstorm.prefs.group and grains.os not in ('MacOS',) %}
+    - group: {{ webstorm.prefs.group }}
+       {% endif %}
     - if_missing: {{ webstorm.homes }}/{{ webstorm.prefs.user }}/{{ webstorm.prefs.jarfile }}
-   {% else %}
   cmd.run:
+    - unless: test -f {{ webstorm.prefs.jardir }}/{{ webstorm.prefs.jarfile }}
     - name: curl -o {{webstorm.homes}}/{{webstorm.prefs.user}}/{{webstorm.prefs.jarfile}} {{webstorm.prefs.jarurl}}
     - runas: {{ webstorm.prefs.user }}
     - if_missing: {{ webstorm.homes }}/{{ webstorm.prefs.user }}/{{ webstorm.prefs.jarfile }}
-   {% endif %}
-
   {% endif %}
+
 
 {% endif %}
 
