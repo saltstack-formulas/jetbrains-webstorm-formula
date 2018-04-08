@@ -1,0 +1,13 @@
+
+MacOS:
+  prefix: '/Applications/WebStorm'
+  homes: '/Users'
+  command: '/webstorm'
+  osflavour': 'mac'
+
+Windows:
+  prefix: 'C:\\Program files\\Webstorm'
+  homes: 'C:\\Users'
+  tmpdir: 'C:\\temp\\jetbrainstmp\\'
+  command: '\\webstorm.exe'
+  osflavour: 'windows'
