@@ -21,9 +21,8 @@ webstorm-config:
     - context:
       home: '{{ webstorm.jetbrains.home }}/webstorm'
 
-  # Debian alternatives
-  {% if webstorm.linux.altpriority > 0 %}
-     {% if grains.os_family not in ('Arch',) %}
+  # Linux alternatives
+  {% if webstorm.linux.altpriority > 0 and grains.os_family not in ('Arch',) %}
 
 # Add webstorm-home to alternatives system
 webstorm-home-alt-install:
@@ -35,12 +34,12 @@ webstorm-home-alt-install:
 
 webstorm-home-alt-set:
   alternatives.set:
-    - name: webstormhome
+    - name: webstorm-home
     - path: {{ webstorm.jetbrains.realhome }}
     - onchanges:
       - alternatives: webstorm-home-alt-install
 
-# Add intelli to alternatives system
+# Add to alternatives system
 webstorm-alt-install:
   alternatives.install:
     - name: webstorm
@@ -58,7 +57,6 @@ webstorm-alt-set:
     - onchanges:
       - alternatives: webstorm-alt-install
 
-      {% endif %}
   {% endif %}
 
 {% endif %}
