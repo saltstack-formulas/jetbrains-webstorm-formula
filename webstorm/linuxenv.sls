@@ -59,4 +59,17 @@ webstorm-alt-set:
 
   {% endif %}
 
+  {% if webstorm.linux.install_desktop_file %}
+webstorm-global-desktop-file:
+  file.managed:
+    - name: {{ webstorm.linux.desktop_file }}
+    - source: salt://webstorm/files/webstorm.desktop
+    - template: jinja
+    - context:
+      home: {{ webstorm.jetbrains.realhome }}
+      command: {{ webstorm.command }}
+      edition: {{ webstorm.jetbrains.edition }}
+    - onlyif: test -f {{ webstorm.jetbrains.realhome }}/{{ webstorm.command }}
+  {% endif %}
+
 {% endif %}
