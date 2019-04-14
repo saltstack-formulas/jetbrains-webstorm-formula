@@ -22,7 +22,8 @@
 {% endif %}
 
 # Get dynamic release metadata
-{%- set pcode = pcode ~ ide.jetbrains.edition %}
+{%- set pcode = ide.jetbrains.product %}
+{%- set pcode = pcode ~ ide.jetbrains.edition if ide.jetbrains.edition else pcode %}
 {% if grains.os == 'MacOS' or ide.jetbrains.edition in ('None',) %}
    {%- set pcode = ide.jetbrains.product %}
 {% endif %}
