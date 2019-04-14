@@ -31,6 +31,9 @@ webstorm-home-alt-install:
     - link: '{{ webstorm.jetbrains.home }}/webstorm'
     - path: '{{ webstorm.jetbrains.realhome }}'
     - priority: {{ webstorm.linux.altpriority }}
+    - retry:
+        attempts: 3
+        until: True
 
 webstorm-home-alt-set:
   alternatives.set:
@@ -38,6 +41,9 @@ webstorm-home-alt-set:
     - path: {{ webstorm.jetbrains.realhome }}
     - onchanges:
       - alternatives: webstorm-home-alt-install
+    - retry:
+        attempts: 3
+        until: True
 
 # Add to alternatives system
 webstorm-alt-install:
@@ -49,6 +55,9 @@ webstorm-alt-install:
     - require:
       - alternatives: webstorm-home-alt-install
       - alternatives: webstorm-home-alt-set
+    - retry:
+        attempts: 3
+        until: True
 
 webstorm-alt-set:
   alternatives.set:
@@ -56,6 +65,9 @@ webstorm-alt-set:
     - path: {{ webstorm.jetbrains.realcmd }}
     - onchanges:
       - alternatives: webstorm-alt-install
+    - retry:
+        attempts: 3
+        until: True
 
   {% endif %}
 
