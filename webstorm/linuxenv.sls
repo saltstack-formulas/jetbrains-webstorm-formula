@@ -19,7 +19,7 @@ webstorm-config:
     - user: root
     - group: root
     - context:
-      home: '{{ webstorm.jetbrains.home }}/webstorm'
+      home: '{{ webstorm.jetbrains.home|json }}/webstorm'
 
   # Linux alternatives
   {% if webstorm.linux.altpriority > 0 and grains.os_family not in ('Arch',) %}
@@ -78,9 +78,9 @@ webstorm-global-desktop-file:
     - source: salt://webstorm/files/webstorm.desktop
     - template: jinja
     - context:
-      home: {{ webstorm.jetbrains.realhome }}
-      command: {{ webstorm.command }}
-      edition: {{ webstorm.jetbrains.edition }}
+      home: {{ webstorm.jetbrains.realhome|json }}
+      command: {{ webstorm.command|json }}
+      edition: {{ webstorm.jetbrains.edition|json }}
     - onlyif: test -f {{ webstorm.jetbrains.realhome }}/{{ webstorm.command }}
   {% endif %}
 

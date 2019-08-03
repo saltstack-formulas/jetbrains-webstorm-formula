@@ -16,9 +16,9 @@ webstorm-desktop-shortcut-add:
     - mode: 755
     - template: jinja
     - context:
-      user: {{ webstorm.prefs.user }}
-      homes: {{ webstorm.homes }}
-      edition: {{ webstorm.jetbrains.edition }}
+      user: {{ webstorm.prefs.user|json }}
+      homes: {{ webstorm.homes|json }}
+      edition: {{ webstorm.jetbrains.edition|json }}
     - onlyif: test "`uname`" = "Darwin"
   cmd.run:
     - name: /tmp/mac_shortcut.sh {{ webstorm.jetbrains.edition }}
@@ -43,9 +43,8 @@ webstorm-desktop-shortcut-install:
     - template: jinja
     - onlyif: test -f {{ webstorm.jetbrains.realcmd }}
     - context:
-      home: {{ webstorm.jetbrains.realhome }}
-      command: {{ webstorm.command }}
-
+      home: {{ webstorm.jetbrains.realhome|json }}
+      command: {{ webstorm.command|json }}
 
   {% if webstorm.prefs.jarurl or webstorm.prefs.jardir %}
 
