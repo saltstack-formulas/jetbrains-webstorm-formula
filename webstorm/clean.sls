@@ -13,7 +13,7 @@ include:
 
     {%- else %}
 
-webstorm-not-available-to-install:
+webstorm-not-available-to-clean:
   test.show_notification:
     - text: |
         The webstorm package is unavailable for {{ salt['grains.get']('finger', grains.os_family) }}
