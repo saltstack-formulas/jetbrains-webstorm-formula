@@ -1,7 +1,7 @@
 .. _readme:
 
 webstorm-formula
-============
+================
 
 |img_travis| |img_sr|
 
