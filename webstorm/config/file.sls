@@ -22,7 +22,7 @@ webstorm-config-file-managed-config_file:
                               lookup='webstorm-config-file-file-managed-config_file'
                  )
               }}
-    - mode: 640
+    - mode: '0640'
     - user: {{ webstorm.identity.rootuser }}
     - group: {{ webstorm.identity.rootgroup }}
     - makedirs: True

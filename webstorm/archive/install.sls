@@ -14,7 +14,7 @@ webstorm-package-archive-install:
     - name: {{ webstorm.pkg.archive.path }}
     - user: {{ webstorm.identity.rootuser }}
     - group: {{ webstorm.identity.rootgroup }}
-    - mode: 755
+    - mode: '0755'
     - makedirs: True
     - clean: True
     - require_in:

@@ -21,7 +21,7 @@ webstorm-config-file-file-managed-environ_file:
                               lookup='webstorm-config-file-file-managed-environ_file'
                  )
               }}
-    - mode: 644
+    - mode: '0644'
     - user: {{ webstorm.identity.rootuser }}
     - group: {{ webstorm.identity.rootgroup }}
     - makedirs: True

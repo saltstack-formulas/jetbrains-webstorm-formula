@@ -22,7 +22,7 @@ webstorm-config-file-file-managed-desktop-shortcut_file:
                               lookup='webstorm-config-file-file-managed-desktop-shortcut_file'
                  )
               }}
-    - mode: 644
+    - mode: '0644'
     - user: {{ webstorm.identity.user }}
     - makedirs: True
     - template: jinja

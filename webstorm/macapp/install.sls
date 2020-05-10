@@ -51,7 +51,7 @@ webstorm-macos-app-install-macpackage:
   file.managed:
     - name: /tmp/mac_shortcut.sh
     - source: salt://webstorm/files/mac_shortcut.sh
-    - mode: 755
+    - mode: '0755'
     - template: jinja
     - context:
       appname: {{ webstorm.pkg.name }}
