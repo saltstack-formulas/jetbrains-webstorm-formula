@@ -17,11 +17,12 @@
 %}
 {%- set w = salt['grains.filter_by']( {'defaults': defaults}, default='defaults', merge=_config) %}
 
-{%- set pcode = w.product ~ w.edition if w.edition else w.product %}
+{%- set edition = '' if 'edition' not in w else w.edition %}
+{%- set pcode = w.product ~ edition %}
 {%- set jdata = salt['cmd.run']('curl -s -L {0}{1}'.format(w.pkg.archive.uri, pcode))|load_yaml %}
 {%- do w.update({ 'version': jdata[ pcode ][0]['version'] }) %}
 
-{%- set dirname = 'w-%s-%s'|format( w.edition if w.edition else '', w.version) %}
+{%- set dirname = 'w-%s-%s'|format( edition, w.version) %}
 {%- set url = jdata[ pcode ][0]['downloads'][ w.flavour ]['link'] %}
 {%- set hash  = salt['cmd.run']('curl -L -s {0}'.format( jdata[ pcode ][0]['downloads'][ w.flavour ]['checksumLink'])).split(' ')[0] %}  # noqa 204
 
