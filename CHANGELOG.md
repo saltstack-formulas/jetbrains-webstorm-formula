@@ -1,5 +1,28 @@
 # Changelog
 
+## [1.0.1](https://github.com/saltstack-formulas/jetbrains-webstorm-formula/compare/v1.0.0...v1.0.1) (2020-06-15)
+
+
+### Bug Fixes
+
+* **edition:** better edition jinja code ([e33df74](https://github.com/saltstack-formulas/jetbrains-webstorm-formula/commit/e33df74eca2dee8e3bbdcfa3f0e681bbf5fe7a2b))
+
+
+### Code Refactoring
+
+* **jinja:** rename 'webstorm' to w for shorter lines ([15077cd](https://github.com/saltstack-formulas/jetbrains-webstorm-formula/commit/15077cd1b50a10283896bc2b362b238aab49a8e5))
+
+
+### Continuous Integration
+
+* **kitchen+travis:** add new platforms [skip ci] ([15276ed](https://github.com/saltstack-formulas/jetbrains-webstorm-formula/commit/15276ed0c84a026acf5127d06577e62ce0f5f004))
+* **travis:** add notifications => zulip [skip ci] ([d4caf97](https://github.com/saltstack-formulas/jetbrains-webstorm-formula/commit/d4caf97bd7d245938a3e8ec5ef5b2efbe911576e))
+
+
+### Documentation
+
+* **readme:** update style ([81246a6](https://github.com/saltstack-formulas/jetbrains-webstorm-formula/commit/81246a646bc1548b3247278ab86501a30e775987))
+
 # [1.0.0](https://github.com/saltstack-formulas/jetbrains-webstorm-formula/compare/v0.2.0...v1.0.0) (2020-05-19)
 
 
