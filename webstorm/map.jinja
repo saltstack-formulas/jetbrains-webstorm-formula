@@ -15,24 +15,27 @@
       )
     )
 %}
-{%- set webstorm = salt['grains.filter_by']( {'defaults': defaults}, default='defaults', merge=_config) %}
+{%- set w = salt['grains.filter_by']( {'defaults': defaults}, default='defaults', merge=_config) %}
 
-{%- set pcode = webstorm.product ~ webstorm.edition if webstorm.edition else webstorm.product %}
-{%- set jdata = salt['cmd.run']('curl -s -L {0}{1}'.format(webstorm.pkg.archive.uri, pcode))|load_yaml %}
-{%- do webstorm.update({ 'version': jdata[ pcode ][0]['version'] }) %}
+{%- set pcode = w.product ~ w.edition if w.edition else w.product %}
+{%- set jdata = salt['cmd.run']('curl -s -L {0}{1}'.format(w.pkg.archive.uri, pcode))|load_yaml %}
+{%- do w.update({ 'version': jdata[ pcode ][0]['version'] }) %}
 
-{%- set dirname = 'webstorm-%s-%s'|format( webstorm.edition if webstorm.edition else '', webstorm.version) %}
-{%- set url = jdata[ pcode ][0]['downloads'][ webstorm.flavour ]['link'] %}
-{%- set hash  = salt['cmd.run']('curl -L -s {0}'.format( jdata[ pcode ][0]['downloads'][ webstorm.flavour ]['checksumLink'])).split(' ')[0] %}  # noqa 204
+{%- set dirname = 'w-%s-%s'|format( w.edition if w.edition else '', w.version) %}
+{%- set url = jdata[ pcode ][0]['downloads'][ w.flavour ]['link'] %}
+{%- set hash  = salt['cmd.run']('curl -L -s {0}'.format( jdata[ pcode ][0]['downloads'][ w.flavour ]['checksumLink'])).split(' ')[0] %}  # noqa 204
 
-{%- if webstorm.pkg.use_upstream_archive %}
-       {%- do webstorm.pkg.archive.update({'name': webstorm.dir.archive ~ '/' ~ dirname,
-                                           'path': webstorm.dir.archive ~ '/' ~ dirname,
-                                           'source': url,
-                                           'source_hash': hash }) %}
+{%- if w.pkg.use_upstream_archive %}
+    {%- do w.pkg.archive.update({'name': w.dir.archive ~ '/' ~ dirname,
+                                 'path': w.dir.archive ~ '/' ~ dirname,
+                                 'source': url,
+                                 'source_hash': hash }) %}
+{%- endif %}
+{%- if w.pkg.use_upstream_macapp %}
+    {%- do w.pkg.macapp.update({'name': '/Applications',
+                                'path': '/Applications',
+                                'source': url,
+                                'source_hash': hash }) %}
 {%- endif %}
 
-{%- if webstorm.pkg.use_upstream_macapp %}
-       {%- do webstorm.pkg.macapp.update({
-              'name': '/Applications', 'path': '/Applications', 'source': url, 'source_hash': hash }) %}
-{%- endif %}
+{%- set webstorm = w %}
