@@ -28,7 +28,7 @@ webstorm-config-file-file-managed-desktop-shortcut_file:
     - template: jinja
     - context:
         appname: {{ webstorm.pkg.name }}
-        edition: {{ webstorm.edition|json }}
+        edition: {{ '' if 'edition' not in webstorm else webstorm.edition|json }}
         command: {{ webstorm.command|json }}
               {%- if webstorm.pkg.use_upstream_macapp %}
         path: {{ webstorm.pkg.macapp.path }}

@@ -55,7 +55,7 @@ Available states
    :local:
 
 ``webstorm``
-^^^^^^^^^^
+^^^^^^^^^^^^
 
 *Meta-state (This is a state that includes other states)*.
 
@@ -64,28 +64,28 @@ manages Webstorm configuration file and then
 configures the development environment.
 
 ``webstorm.archive``
-^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^
 
 This state will install Webstorm from archive only.
 
 ``webstorm.macapp``
-^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^
 
 This state will install Webstorm from source only.
 
 ``webstorm.config``
-^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^
 
 This state will configure npmrc and/or environment and has a dependency on ``webstorm.install``
 via include list.
 
 ``webstorm.linuxenv``
-^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^
 
 This state will install some Webstorm linux-alternatives on GNU/Linux.
 
 ``webstorm.clean``
-^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^
 
 *Meta-state (This is a state that includes other states)*.
 
@@ -94,25 +94,25 @@ removes the configuration file and
 then uninstalls the package.
 
 ``webstorm.config.clean``
-^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This state will remove the configuration of Webstorm and has a
 dependency on ``webstorm.package.clean`` via include list.
 
 ``webstorm.archive.clean``
-^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This state will remove Webstorm package and has a dependency on
 ``webstorm.config.clean`` via include list.
 
 ``webstorm.macapp.clean``
-^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This state will remove Webstorm package and has a dependency on
 ``webstorm.config.clean`` via include list.
 
 ``webstorm.linuxenv.clean``
-^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This state will remove Webstorm linux-alternatives on GNU/Linux.
 

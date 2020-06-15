@@ -9,4 +9,4 @@ webstorm-package-archive-clean-file-absent:
   file.absent:
     - names:
       - {{ webstorm.pkg.archive.path }}
-      - /usr/local/jetbrains/webstorm-{{ webstorm.edition }}-*
+      - /usr/local/jetbrains/webstorm-*

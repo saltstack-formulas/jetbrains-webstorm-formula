@@ -55,7 +55,7 @@ webstorm-macos-app-install-macpackage:
     - template: jinja
     - context:
       appname: {{ webstorm.pkg.name }}
-      edition: {{ webstorm.edition }}
+      edition: {{ '' if 'edition' not in webstorm else webstorm.edition }}
       user: {{ webstorm.identity.user }}
       homes: {{ webstorm.dir.homes }}
   cmd.run:
