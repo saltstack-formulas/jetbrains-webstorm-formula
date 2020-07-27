@@ -11,21 +11,21 @@ webstorm-linuxenv-home-file-absent:
   file.absent:
     - names:
       - /opt/webstorm
-      - {{ webstorm.pkg.archive.path }}
+      - {{ webstorm.dir.path }}
 
         {% if webstorm.linux.altpriority|int > 0 and grains.os_family not in ('Arch',) %}
 
 webstorm-linuxenv-home-alternatives-clean:
   alternatives.remove:
     - name: webstormhome
-    - path: {{ webstorm.pkg.archive.path }}
+    - path: {{ webstorm.dir.path }}
     - onlyif: update-alternatives --get-selections |grep ^webstormhome
 
 
 webstorm-linuxenv-executable-alternatives-clean:
   alternatives.remove:
     - name: webstorm
-    - path: {{ webstorm.pkg.archive.path }}/webstorm
+    - path: {{ webstorm.dir.path }}/{{ webstorm.command }}
     - onlyif: update-alternatives --get-selections |grep ^webstorm
 
         {%- else %}

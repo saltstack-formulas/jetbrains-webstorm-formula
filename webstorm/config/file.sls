@@ -28,12 +28,7 @@ webstorm-config-file-managed-config_file:
     - makedirs: True
     - template: jinja
     - context:
-              {%- if webstorm.pkg.use_upstream_macapp %}
-        path: {{ webstorm.pkg.macapp.path }}
-              {%- else %}
-        path: {{ webstorm.pkg.archive.path }}
-              {%- endif %}
-        config: {{ webstorm.config|json }}
+      config: {{ webstorm.config|json }}
     - require:
       - sls: {{ sls_package_install }}
 

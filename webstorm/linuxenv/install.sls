@@ -10,8 +10,8 @@
 webstorm-linuxenv-home-file-symlink:
   file.symlink:
     - name: /opt/webstorm
-    - target: {{ webstorm.pkg.archive.path }}
-    - onlyif: test -d '{{ webstorm.pkg.archive.path }}'
+    - target: {{ webstorm.dir.path }}
+    - onlyif: test -d '{{ webstorm.dir.path }}'
     - force: True
 
         {% if webstorm.linux.altpriority|int > 0 and grains.os_family not in ('Arch',) %}
@@ -20,14 +20,14 @@ webstorm-linuxenv-home-alternatives-install:
   alternatives.install:
     - name: webstormhome
     - link: /opt/webstorm
-    - path: {{ webstorm.pkg.archive.path }}
+    - path: {{ webstorm.dir.path }}
     - priority: {{ webstorm.linux.altpriority }}
     - retry: {{ webstorm.retry_option|json }}
 
 webstorm-linuxenv-home-alternatives-set:
   alternatives.set:
     - name: webstormhome
-    - path: {{ webstorm.pkg.archive.path }}
+    - path: {{ webstorm.dir.path }}
     - onchanges:
       - alternatives: webstorm-linuxenv-home-alternatives-install
     - retry: {{ webstorm.retry_option|json }}
@@ -36,7 +36,7 @@ webstorm-linuxenv-executable-alternatives-install:
   alternatives.install:
     - name: webstorm
     - link: {{ webstorm.linux.symlink }}
-    - path: {{ webstorm.pkg.archive.path }}/{{ webstorm.command }}
+    - path: {{ webstorm.dir.path }}/{{ webstorm.command }}
     - priority: {{ webstorm.linux.altpriority }}
     - require:
       - alternatives: webstorm-linuxenv-home-alternatives-install
@@ -46,7 +46,7 @@ webstorm-linuxenv-executable-alternatives-install:
 webstorm-linuxenv-executable-alternatives-set:
   alternatives.set:
     - name: webstorm
-    - path: {{ webstorm.pkg.archive.path }}/{{ webstorm.command }}
+    - path: {{ webstorm.dir.path }}/{{ webstorm.command }}
     - onchanges:
       - alternatives: webstorm-linuxenv-executable-alternatives-install
     - retry: {{ webstorm.retry_option|json }}
