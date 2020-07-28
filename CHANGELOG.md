@@ -1,5 +1,36 @@
 # Changelog
 
+## [1.0.2](https://github.com/saltstack-formulas/jetbrains-webstorm-formula/compare/v1.0.1...v1.0.2) (2020-07-28)
+
+
+### Bug Fixes
+
+* **cmd.run:** wrap url in quotes (zsh) ([c72b047](https://github.com/saltstack-formulas/jetbrains-webstorm-formula/commit/c72b0473816ebe79a308c9ef3ef0254ddf2fb295))
+* **macos:** correct syntax ([8687ad2](https://github.com/saltstack-formulas/jetbrains-webstorm-formula/commit/8687ad2ecb2a4141da38be060e93e436c1052996))
+* **macos:** do not create shortcut file ([cb6c6eb](https://github.com/saltstack-formulas/jetbrains-webstorm-formula/commit/cb6c6eb7c3dedfdf6b084dc9497f79a7f2d0adf9))
+* **macos:** do not create shortcut file ([1af5eee](https://github.com/saltstack-formulas/jetbrains-webstorm-formula/commit/1af5eee59cf01d6984d9f80a274fd0125afee1f7))
+
+
+### Code Refactoring
+
+* **jetbrains:** align all jetbrains formulas ([beda598](https://github.com/saltstack-formulas/jetbrains-webstorm-formula/commit/beda59898224e0b95b8b160f076a792b62308c15))
+
+
+### Continuous Integration
+
+* **kitchen:** use `saltimages` Docker Hub where available [skip ci] ([ecab38e](https://github.com/saltstack-formulas/jetbrains-webstorm-formula/commit/ecab38ed52398d56f8b3c6360fb028c15b61b593))
+
+
+### Documentation
+
+* **readme:** minor update ([16cbf34](https://github.com/saltstack-formulas/jetbrains-webstorm-formula/commit/16cbf34b98ca157387f0613e26aa99b32b5bb621))
+* **readme:** minor update ([8007d86](https://github.com/saltstack-formulas/jetbrains-webstorm-formula/commit/8007d860b0908eb818ace238d3a36a1b0e19dc7d))
+
+
+### Styles
+
+* **libtofs.jinja:** use Black-inspired Jinja formatting [skip ci] ([48b9046](https://github.com/saltstack-formulas/jetbrains-webstorm-formula/commit/48b90466626549010488ba7f1365364919521a5b))
+
 ## [1.0.1](https://github.com/saltstack-formulas/jetbrains-webstorm-formula/compare/v1.0.0...v1.0.1) (2020-06-15)
 
 
