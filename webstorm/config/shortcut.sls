@@ -5,19 +5,15 @@
 {%- from tplroot ~ "/map.jinja" import webstorm with context %}
 {%- from tplroot ~ "/libtofs.jinja" import files_switch with context %}
 
-{%- if webstorm.linux.install_desktop_file and grains.os not in ('MacOS',) %}
-    {%- if webstorm.pkg.use_upstream_macapp %}
-        {%- set sls_package_install = tplroot ~ '.macapp.install' %}
-    {%- else %}
-        {%- set sls_package_install = tplroot ~ '.archive.install' %}
-    {%- endif %}
+{%- if webstorm.shortcut.install and grains.kernel|lower == 'linux' %}
+    {%- set sls_package_install = tplroot ~ '.archive.install' %}
 
 include:
   - {{ sls_package_install }}
 
 webstorm-config-file-file-managed-desktop-shortcut_file:
   file.managed:
-    - name: {{ webstorm.linux.desktop_file }}
+    - name: {{ webstorm.shortcut.file }}
     - source: {{ files_switch(['shortcut.desktop.jinja'],
                               lookup='webstorm-config-file-file-managed-desktop-shortcut_file'
                  )
