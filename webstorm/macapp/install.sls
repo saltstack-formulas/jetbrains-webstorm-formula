@@ -15,7 +15,9 @@ webstorm-macos-app-install-curl:
     - name: curl
   cmd.run:
     - name: curl -Lo {{ webstorm.dir.tmp }}/webstorm-{{ webstorm.version }} "{{ webstorm.pkg.macapp.source }}"
-    - unless: test -f {{ webstorm.dir.tmp }}/webstorm-{{ webstorm.version }}
+    - unless:
+      - test -f {{ webstorm.dir.tmp }}/webstorm-{{ webstorm.version }}
+      - test -d {{ webstorm.dir.path }}/{{ webstorm.pkg.name }}{{ '' if not webstorm.edition else ' %sE'|format(webstorm.edition) }}  # noqa 204
     - require:
       - file: webstorm-macos-app-install-curl
       - pkg: webstorm-macos-app-install-curl
