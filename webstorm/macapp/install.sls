@@ -14,8 +14,10 @@ webstorm-macos-app-install-curl:
   pkg.installed:
     - name: curl
   cmd.run:
-    - name: curl -Lo {{ webstorm.dir.tmp }}/webstorm-{{ webstorm.version }} {{ webstorm.pkg.macapp.source }}
-    - unless: test -f {{ webstorm.dir.tmp }}/webstorm-{{ webstorm.version }}
+    - name: curl -Lo {{ webstorm.dir.tmp }}/webstorm-{{ webstorm.version }} "{{ webstorm.pkg.macapp.source }}"
+    - unless:
+      - test -f {{ webstorm.dir.tmp }}/webstorm-{{ webstorm.version }}
+      - test -d {{ webstorm.dir.path }}/{{ webstorm.pkg.name }}{{ '' if not webstorm.edition else ' %sE'|format(webstorm.edition) }}  # noqa 204
     - require:
       - file: webstorm-macos-app-install-curl
       - pkg: webstorm-macos-app-install-curl
@@ -49,17 +51,21 @@ webstorm-macos-app-install-macpackage:
     - onchanges:
       - cmd: webstorm-macos-app-install-curl
   file.managed:
-    - name: /tmp/mac_shortcut.sh
-    - source: salt://webstorm/files/mac_shortcut.sh
+    - name: /tmp/mac_shortcut.sh.jinja
+    - source: salt://webstorm/files/mac_shortcut.sh.jinja
     - mode: '0755'
     - template: jinja
     - context:
-      appname: {{ webstorm.pkg.name }}
-      edition: {{ '' if 'edition' not in webstorm else webstorm.edition }}
+      appname: {{ webstorm.dir.path }}/{{ webstorm.pkg.name }}
+      edition: {{ '' if not webstorm.edition else ' %sE'|format(webstorm.edition) }}
       user: {{ webstorm.identity.user }}
       homes: {{ webstorm.dir.homes }}
+    - require:
+      - macpackage: webstorm-macos-app-install-macpackage
+    - onchanges:
+      - macpackage: webstorm-macos-app-install-macpackage
   cmd.run:
-    - name: /tmp/mac_shortcut.sh
+    - name: /tmp/mac_shortcut.sh.jinja
     - runas: {{ webstorm.identity.user }}
     - require:
       - file: webstorm-macos-app-install-macpackage

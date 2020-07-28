@@ -27,11 +27,13 @@ webstorm-config-file-file-managed-environ_file:
     - makedirs: True
     - template: jinja
     - context:
-              {%- if webstorm.pkg.use_upstream_macapp %}
-        path: '/Applications/{{ webstorm.pkg.name|replace(' ','\ ') }}{{ '' if 'edition' not in webstorm else '\ %sE'|format(webstorm.edition) }}.app/Contents/MacOS'  # noqa 204
-              {%- else %}
-        path: {{ webstorm.pkg.archive.path }}/bin
-              {%- endif %}
-        environ: {{ webstorm.environ|json }}
+      environ: {{ webstorm.environ|json }}
+                      {%- if webstorm.pkg.use_upstream_macapp %}
+      edition:  {{ '' if not webstorm.edition else ' %sE'|format(webstorm.edition) }}.app/Contents/MacOS
+      appname: {{ webstorm.dir.path }}/{{ webstorm.pkg.name }}
+                      {%- else %}
+      edition: ''
+      appname: {{ webstorm.dir.path }}/bin
+                      {%- endif %}
     - require:
       - sls: {{ sls_package_install }}

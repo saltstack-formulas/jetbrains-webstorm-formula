@@ -11,7 +11,7 @@ webstorm-package-archive-install:
     - require_in:
       - file: webstorm-package-archive-install
   file.directory:
-    - name: {{ webstorm.pkg.archive.path }}
+    - name: {{ webstorm.dir.path }}
     - user: {{ webstorm.identity.rootuser }}
     - group: {{ webstorm.identity.rootgroup }}
     - mode: '0755'
@@ -39,7 +39,7 @@ webstorm-package-archive-install:
 webstorm-archive-install-file-symlink-webstorm:
   file.symlink:
     - name: /usr/local/bin/webstorm
-    - target: {{ webstorm.pkg.archive.path }}/{{ webstorm.command }}
+    - target: {{ webstorm.dir.path }}/{{ webstorm.command }}
     - force: True
     - onlyif: {{ grains.kernel|lower != 'windows' }}
     - require:

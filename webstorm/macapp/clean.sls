@@ -10,7 +10,11 @@ webstorm-macos-app-clean-files:
   file.absent:
     - names:
       - {{ webstorm.dir.tmp }}
-      - /Applications/{{ webstorm.pkg.name }}-*
+                  {%- if grains.os == 'MacOS' %}
+      - {{ webstorm.dir.path }}/{{ webstorm.pkg.name }}*{{ webstorm.edition }}*.app
+                  {%- else %}
+      - {{ webstorm.dir.path }}
+                  {%- endif %}
 
     {%- else %}
 

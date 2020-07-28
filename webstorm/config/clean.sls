@@ -24,9 +24,9 @@ webstorm-config-clean-file-absent:
       - {{ webstorm.environ_file }}
                {%- endif %}
                {%- if grains.kernel|lower == 'linux' %}
-      - {{ webstorm.linux.desktop_file }}
+      - {{ webstorm.shortcut.file }}
                {%- elif grains.os == 'MacOS' %}
-      - {{ webstorm.dir.homes }}/{{ webstorm.identity.user }}/Desktop/{{ webstorm.pkg.name }}*
+      - {{ webstorm.dir.homes }}/{{ webstorm.identity.user }}/Desktop/{{ webstorm.pkg.name }}*{{ webstorm.edition }}*
                {%- endif %}
     - require:
       - sls: {{ sls_package_clean }}

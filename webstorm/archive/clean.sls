@@ -8,5 +8,9 @@
 webstorm-package-archive-clean-file-absent:
   file.absent:
     - names:
-      - {{ webstorm.pkg.archive.path }}
-      - /usr/local/jetbrains/webstorm-*
+      - {{ webstorm.dir.tmp }}
+                  {%- if grains.os == 'MacOS' %}
+      - {{ webstorm.dir.path }}/{{ webstorm.pkg.name }}*{{ webstorm.edition }}*.app
+                  {%- else %}
+      - {{ webstorm.dir.path }}
+                  {%- endif %}
