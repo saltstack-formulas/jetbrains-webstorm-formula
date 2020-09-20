@@ -2,6 +2,15 @@
 Changelog
 =========
 
+`1.2.0 <https://github.com/saltstack-formulas/jetbrains-webstorm-formula/compare/v1.1.0...v1.2.0>`_ (2020-09-20)
+--------------------------------------------------------------------------------------------------------------------
+
+Features
+^^^^^^^^
+
+
+* **clean:** add windows support (\ `f3d803d <https://github.com/saltstack-formulas/jetbrains-webstorm-formula/commit/f3d803dff5a9f0655a9359b884bc9c06ebbdb946>`_\ )
+
 `1.1.0 <https://github.com/saltstack-formulas/jetbrains-webstorm-formula/compare/v1.0.2...v1.1.0>`_ (2020-09-20)
 --------------------------------------------------------------------------------------------------------------------
 
