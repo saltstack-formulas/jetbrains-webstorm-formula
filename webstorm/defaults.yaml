@@ -4,7 +4,7 @@
 webstorm:
   product: WS
   edition: ''
-  flavour: linux
+  flavour: linux   # linux (default), mac (default), windows (setup.exe)
   release: latest
   version: latest
 
