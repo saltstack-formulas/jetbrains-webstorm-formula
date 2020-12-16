@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.2.1](https://github.com/saltstack-formulas/jetbrains-webstorm-formula/compare/v1.2.0...v1.2.1) (2020-12-16)
+
+
+### Continuous Integration
+
+* **gitlab-ci:** use GitLab CI as Travis CI replacement ([4b13fbb](https://github.com/saltstack-formulas/jetbrains-webstorm-formula/commit/4b13fbb8de6cc770db99e5a8c64046c370c7416d))
+* **pre-commit:** add to formula [skip ci] ([cf18dec](https://github.com/saltstack-formulas/jetbrains-webstorm-formula/commit/cf18dec1e3c9981f2fdd058bba36159d9a634de1))
+* **pre-commit:** enable/disable `rstcheck` as relevant [skip ci] ([6b3a3eb](https://github.com/saltstack-formulas/jetbrains-webstorm-formula/commit/6b3a3ebee72ce18166b753cee8931658a70792ec))
+* **pre-commit:** finalise `rstcheck` configuration [skip ci] ([a37df1a](https://github.com/saltstack-formulas/jetbrains-webstorm-formula/commit/a37df1ade5e056dccf4403015e0a226cc13e6293))
+
+
+### Documentation
+
+* **readme:** fix `rstcheck` violation [skip ci] ([088620f](https://github.com/saltstack-formulas/jetbrains-webstorm-formula/commit/088620faa500f7caa66fb9c188203ac59197bc9a)), closes [/travis-ci.org/github/myii/jetbrains-webstorm-formula/builds/731607222#L259](https://github.com//travis-ci.org/github/myii/jetbrains-webstorm-formula/builds/731607222/issues/L259)
+
 # [1.2.0](https://github.com/saltstack-formulas/jetbrains-webstorm-formula/compare/v1.1.0...v1.2.0) (2020-09-20)
 
 
