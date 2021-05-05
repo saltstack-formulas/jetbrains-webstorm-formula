@@ -1,5 +1,3 @@
-.. _readme:
-
 webstorm-formula
 ================
 
@@ -63,7 +61,7 @@ manages Webstorm configuration file and then
 configures the development environment.
 
 ``webstorm.archive``
-^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^
 
 This state will install Webstorm from archive only.
 
